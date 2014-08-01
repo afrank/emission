@@ -5,6 +5,7 @@ Carbon-like musings
 
 Example Bash Script to send data:
 
+```
 #!/bin/bash
 
 # check to see if any swap is being used
@@ -24,3 +25,4 @@ fi
 msg="${swap_mb:-0}MB of Swap is being used"
 
 curl -d "{\"apiKey\":\"$apiKey\",\"status_code\":$code,\"key\":\"$key\",\"comment\":\"$msg\"}" "$remote_target"
+```
