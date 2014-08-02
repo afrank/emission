@@ -3,6 +3,17 @@ emission
 
 Carbon-like musings
 
+What should this monitoring solution be
+- infinitely scalable -- out-of-the-box support for 1mil metrics/minute (10k hosts each sending 100 metrics on a 1-minute interval)
+- Storage growth should be controllable -- data can be aged or kept forever -- must support zero-growth
+- must support push and pull natively -- clients will use it that have no open inbound ports
+- highly pluggable -- clear distinction between different components with coherent APIs connecting them
+- multi-tenant
+- coherent configs with various forms of wildcard support -- no rigid long-winded definitions for services, hosts, etc.
+- auto-discovery of hosts
+- comprehensive clustering support
+
+
 Example Bash Script to send data:
 
 ```
