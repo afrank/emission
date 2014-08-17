@@ -1,8 +1,6 @@
 emission
 ========
 
-Carbon-like musings
-
 What should this monitoring solution be
 - infinitely scalable -- out-of-the-box support for 1mil metrics/minute (10k hosts each sending 100 metrics on a 1-minute interval)
 - Storage growth should be controllable -- data can be aged or kept forever -- must support zero-growth

