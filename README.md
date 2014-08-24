@@ -10,6 +10,8 @@ What should this monitoring solution be
 - coherent configs with various forms of wildcard support -- no rigid long-winded definitions for services, hosts, etc.
 - auto-discovery of hosts
 - comprehensive clustering support
+- developers can subscribe to a notification scheme
+- very good, easy-to-parse logging
 
 
 Example Bash Script to send data:
