@@ -14,6 +14,7 @@ import simple
 payload = ""
 
 priv_key = '/opt/stuff/receiver/receiver_rsa.simple'
+verify_key = '/opt/stuff/receiver/sender_rsa.simple.pub'
 
 while True:
 	r = select.select([ sys.stdin ], [], [], 0)[0]
@@ -24,13 +25,16 @@ while True:
 
 
 try:
-	payload = pickle.loads(simple.SimpleCrypt(key=priv_key).decrypt(*pickle.loads(payload)))
+	s = simple.SimpleCrypt(key=priv_key)
+	payload = pickle.loads(s.decrypt(*pickle.loads(payload)))
 except:
 	print "not a proper pickle."
 	sys.stdout.flush()
 	exit(2)
 
+s = simple.SimpleCrypt(key=verify_key)
 for p in payload:
 	print p
+	print s.verify_sign(**json.loads(p))
 	sys.stdout.flush()
 

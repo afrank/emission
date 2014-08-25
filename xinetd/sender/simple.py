@@ -15,6 +15,7 @@ import Crypto.Util.number
 # from unittest import TestCase
 from Crypto.Util import randpool
 import base64
+import logging
 
 class SimpleCrypt:
 	@property
@@ -52,6 +53,18 @@ class SimpleCrypt:
 		pad = ord(plain_text[-1])
 		plain_text = plain_text[:-pad]
 		return plain_text
+	def verify_sign(self,**kwargs):
+		sig = kwargs['signature']
+		file = kwargs['command']
+		from Crypto.Signature import PKCS1_v1_5 
+		from Crypto.Hash import SHA256 
+		signer = PKCS1_v1_5.new(self.set_rsa_key(self.key)) 
+		digest = SHA256.new() 
+		digest.update(open(file).read())
+		b = base64.urlsafe_b64decode(str(sig))
+		if signer.verify(digest, b):
+			return True
+		return False
 	set_rsa_key = lambda self, key: RSA.importKey(open(key).read())
 	rsa_encrypt = lambda self, plain_text: self.sig_key.encrypt(plain_text,16)
 	rsa_decrypt = lambda self, encrypted_text: self.ver_key.decrypt(encrypted_text)
@@ -76,6 +89,8 @@ class SimpleSender(object):
 	def add(self,payload):
 		if payload is None:
 			return False
+		if 'signature' in payload:
+			payload['signature'] = base64.urlsafe_b64encode(payload['signature'])
 		j = json.dumps(payload)
 		self.payload.append(j)
 	def get(self):

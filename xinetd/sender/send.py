@@ -4,7 +4,10 @@ import simple
 
 key = '/opt/stuff/sender/receiver_rsa.simple.pub'
 
-d = { 'command': '/opt/stuff/receiver/script.sh', 'comment': 'here is a comment' }
+command='/opt/stuff/receiver/script.sh'
+sigfile='/opt/stuff/sender/script.sh.sign'
+
+d = { 'command':command, 'signature':open(sigfile).read() }
 
 s = simple.SimpleSender(key=key,port=3333)
 
