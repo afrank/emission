@@ -44,14 +44,14 @@ class SimpleCrypt:
 		self.ver_key = self.set_rsa_key(self.key)
 		key_string = self.rsa_decrypt(args[0])
 		encrypted_string = args[1]
-		key_bytes2 = base64.urlsafe_b64decode(key_string)
-		encrypted_bytes2 = base64.urlsafe_b64decode(encrypted_string)
-		iv_bytes2 = encrypted_bytes2[:self.block_size]
-		encrypted_bytes2 = encrypted_bytes2[self.block_size:]
-		plain_text2 = AES.new(key_bytes2, self.mode, iv_bytes2).decrypt(encrypted_bytes2)
-		pad = ord(plain_text2[-1])
-		plain_text2 = plain_text2[:-pad]
-		return plain_text2
+		key_bytes = base64.urlsafe_b64decode(key_string)
+		encrypted_bytes = base64.urlsafe_b64decode(encrypted_string)
+		iv_bytes = encrypted_bytes[:self.block_size]
+		encrypted_bytes = encrypted_bytes[self.block_size:]
+		plain_text = AES.new(key_bytes, self.mode, iv_bytes).decrypt(encrypted_bytes)
+		pad = ord(plain_text[-1])
+		plain_text = plain_text[:-pad]
+		return plain_text
 	set_rsa_key = lambda self, key: RSA.importKey(open(key).read())
 	rsa_encrypt = lambda self, plain_text: self.sig_key.encrypt(plain_text,16)
 	rsa_decrypt = lambda self, encrypted_text: self.ver_key.decrypt(encrypted_text)
