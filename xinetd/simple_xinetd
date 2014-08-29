@@ -1,0 +1,14 @@
+# default: on
+# description: Simple Bash-based monitoring tool
+service simple_monitor
+{
+        flags           = REUSE
+        type            = UNLISTED
+        port            = 3333
+        socket_type     = stream
+        wait            = no
+        user            = nobody
+        server          = /opt/stuff/receiver/receiver.py
+        log_on_failure  += USERID
+        disable         = no
+}
