@@ -1,5 +1,5 @@
 # default: on
-# description: Simple Bash-based monitoring tool
+# description: Simple monitoring tool
 service simple_monitor
 {
         flags           = REUSE
